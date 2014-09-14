@@ -23,6 +23,17 @@ Device name. The values should be :
 -For STM32F1XX : STM32F10X_LD, STM32F10X_LD_VL, STM32F10X_MD, STM32F10X_MD_VL, STM32F10X_HD, STM32F10X_HD_VL, STM32F10X_XL, STM32F10X_CL
 Other devices are not supported yet.
 
+Also, it is possible to define the following variables:
+
+CC :
+Define the compiler command.
+
+AR :
+Define the archive program.
+
+CFLAGS :
+Define the compilation flags.
+
 Tools on GNU Linux
 ----------------------
 
