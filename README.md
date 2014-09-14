@@ -3,7 +3,7 @@ libausbee is an open-source library providing drivers and functions for robotics
 Compiling
 ======================
 
-On baremetal (STM32)
+Library 
 ----------------------
 
 While calling make, some variables must be defined:
@@ -34,10 +34,10 @@ Define the archive program.
 CFLAGS :
 Define the compilation flags.
 
-Tools on GNU Linux
+Tools : lidar-viewer
 ----------------------
 
-dependencies for lidar-viewer:
+dependencies:
 - Qt4
 
 Use CMakeLists. It requires Qt4.
