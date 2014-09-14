@@ -22,8 +22,6 @@
 #ifndef LIDAR_H
 #define LIDAR_H
 
-//#include "AUSBEE/lidar.h"
-
 #ifdef STM32F4XX
 #include <stm32f4xx.h>
 #elif STM32F10X
