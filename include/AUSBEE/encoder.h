@@ -3,8 +3,8 @@
  * @file    encoder.h
  * @author  David BITONNEAU <david.bitonneau@gmail.com>
  * @author  Fabien DEPRAETRE
- * @version V1.0
- * @date    18-Mar-2014
+ * @version V2.0
+ * @date    08-May-2015
  * @brief   Encoders driver definition file.
  ********************************************************************
  * @attention
@@ -45,7 +45,7 @@
   */
 
 void ausbee_init_sampling_timer(TIM_TypeDef *TIMX, int32_t prescaler, int32_t period);
-void ausbee_encoder_init_timer(TIM_TypeDef *TIMX);
+void ausbee_encoder_init_timer(TIM_TypeDef *TIMX, uint8_t use_encoder_quadrature);
 void ausbee_encoder_clock_enable(TIM_TypeDef *TIMX);
 void ausbee_encoder_clock_disable(TIM_TypeDef *TIMX);
 

@@ -3,8 +3,8 @@
  * @file    encoder.c
  * @author  David BITONNEAU <david.bitonneau@gmail.com>
  * @author  Fabien DEPRAETRE
- * @version V1.0
- * @date    18-Mar-2014
+ * @version V2.0
+ * @date    08-May-2015
  * @brief   Encoders driver implementation file.
  ********************************************************************
  * @attention
@@ -82,20 +82,35 @@ void ausbee_init_sampling_timer(TIM_TypeDef *TIMX, int32_t prescaler, int32_t pe
   }
 }
 
-/* TODO Add encoder type support (simple or quadrature) */
-void ausbee_encoder_init_timer(TIM_TypeDef *TIMX)
+void ausbee_encoder_init_timer(TIM_TypeDef *TIMX, uint8_t use_encoder_quadrature)
 {
-  TIM_TimeBaseInitTypeDef timeBaseInitTypeDef;
+  if (use_encoder_quadrature)
+  {
+    // Set them up as encoder inputs
+    // Set both inputs to rising polarity to let it use both edges
+    TIM_EncoderInterfaceConfig(TIMX, TIM_EncoderMode_TI12, TIM_ICPolarity_Rising, TIM_ICPolarity_Rising);
+    TIM_SetAutoreload(TIMX, 0xffff);
 
-  TIM_TimeBaseStructInit(&timeBaseInitTypeDef);
+    // Turn on the timer/counters
+    TIM_Cmd(TIMX, ENABLE);
+  }
+  else
+  {
+    TIM_TimeBaseInitTypeDef timeBaseInitTypeDef;
 
-  timeBaseInitTypeDef.TIM_Period = 0xFFFF;
+    TIM_TimeBaseStructInit(&timeBaseInitTypeDef);
 
-  TIM_TimeBaseInit(TIMX, &timeBaseInitTypeDef);
+    timeBaseInitTypeDef.TIM_Period = 0xFFFF;
 
-  TIM_TIxExternalClockConfig(TIMX, TIM_TS_TI1FP1, TIM_ICPolarity_Rising, 0x0);
+    TIM_TimeBaseInit(TIMX, &timeBaseInitTypeDef);
 
-  TIM_Cmd(TIMX, ENABLE);
+    TIM_TIxExternalClockConfig(TIMX, TIM_TS_TI1FP1, TIM_ICPolarity_Rising, 0x0);
+
+    TIM_Cmd(TIMX, ENABLE);
+  }
+
+  // Reset of the timer counter
+  TIM_SetCounter(TIMX, 0);
 }
 
 void ausbee_encoder_clock_cmd(TIM_TypeDef *TIMX, FunctionalState new_state)
