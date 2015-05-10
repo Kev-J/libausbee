@@ -1,4 +1,5 @@
 import sys
+import time
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -14,6 +15,7 @@ else:
 
 fig = plt.figure()
 x_range = 100
+replay_speed = 500 # points replayed per second
 
 #right_motor_subplot = Subplot( -1000, 1000, x_range, fig, 20, 20, 0)
 #left_motor_subplot  = Subplot( -1000, 1000, x_range, fig, 2, 2, 2)
@@ -33,6 +35,9 @@ def readline_starting_with(start_string):
             c = ser.read()
         if c != '\x00':
             line.append(c)
+
+    if is_file:
+        time.sleep(1. / (3 * replay_speed))
 
     line = ''.join(line)
     if line.startswith(start_string):
