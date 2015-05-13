@@ -3,7 +3,7 @@
  * @file    pid.c
  * @author  Kevin JOLY
  * @author  David BITONNEAU <david.bitonneau@gmail.com>
- * @version V1.0
+ * @version V1.2
  * @date    14-Mar-2014
  * @brief   PID controller implementation file. Contain controllers
  *          for control engineering.
@@ -72,10 +72,28 @@ void ausbee_pid_init(struct ausbee_pid *pid, float Kp, float Ki, float Kd)
   pid->error_sum = 0;
   pid->error_diff = 0;
 
+  pid->min_error_sum = -INFINITY;
+  pid->max_error_sum =  INFINITY;
+
   pid->min_output = -INFINITY;
   pid->max_output =  INFINITY;
 
   pid->error_deadband = 0;
+}
+
+/**
+ * @fn void ausbee_pid_set_error_sum_range(struct ausbee_pid *pid, float min_error_sum, float max_error_sum)
+ * @brief Define bounds for pid output
+ *
+ * @param pid Structure reference.
+ * @param min_error_sum Minimum saturation integral error value.
+ * @param max_error_sum Maximum saturation integral error value.
+ *
+ */
+void ausbee_pid_set_error_sum_range(struct ausbee_pid *pid, float min_error_sum, float max_error_sum)
+{
+  pid->min_error_sum = min_error_sum;
+  pid->max_error_sum = max_error_sum;
 }
 
 /**
@@ -158,6 +176,9 @@ float ausbee_pid_eval(void *controller, float error)
     error = 0;
 
   pid->error_sum += error;
+  if (pid->error_sum > pid->max_error_sum) { pid->error_sum = pid->max_error_sum; }
+  if (pid->error_sum < pid->min_error_sum) { pid->error_sum = pid->min_error_sum; }
+
   pid->error_diff = error - pid->last_error;
 
   output = pid->Kp * error + pid->Ki * pid->error_sum + pid->Kd * pid->error_diff;

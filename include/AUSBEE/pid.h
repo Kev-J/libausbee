@@ -3,7 +3,7 @@
  * @file    pid.h
  * @author  Kevin JOLY
  * @author  David BITONNEAU <david.bitonneau@gmail.com>
- * @version V1.1
+ * @version V1.2
  * @date    14-Mar-2014
  * @brief   PID controller definition file. Contain controllers
  *          for control engineering.
@@ -68,6 +68,9 @@ struct ausbee_pid {
   float error_sum; /*!< Sum of previous errors. */
   float error_diff; /*!< Diff with previous errors. */
 
+  float min_error_sum; /*!< Minimum saturation integral error value. */
+  float max_error_sum;/*!< Maximum saturation integral error value. */
+
   float min_output; /*!< Minimum saturation output value. */
   float max_output; /*!< Maximum saturation output value. */
 
@@ -75,6 +78,7 @@ struct ausbee_pid {
 };
 
 void ausbee_pid_init(struct ausbee_pid *pid, float Kp, float Ki, float Kd);
+void ausbee_pid_set_error_sum_range(struct ausbee_pid *pid, float min_error_sum, float max_error_sum);
 void ausbee_pid_set_output_range(struct ausbee_pid *pid, float min_output, float max_output);
 void ausbee_pid_set_error_deadband(struct ausbee_pid *pid, float error_deadband);
 
