@@ -2,8 +2,8 @@
  ********************************************************************
  * @file    quadramp.c
  * @author  David BITONNEAU <david.bitonneau@gmail.com>
- * @version V1.1
- * @date    24-May-2014
+ * @version V1.2
+ * @date    14-May-2015
  * @brief   Quadramp filter implementation file.
  ********************************************************************
  * @attention
@@ -77,6 +77,11 @@ void ausbee_quadramp_set_1st_order_vars(struct ausbee_quadramp * q,
 {
 	q->var_1st_ord_pos = var_1st_ord_pos;
 	q->var_1st_ord_neg = var_1st_ord_neg;
+}
+
+void ausbee_quadramp_reset(struct ausbee_quadramp * q)
+{
+  q->prev_var = 0;
 }
 
 /* TODO: handle float equality */
