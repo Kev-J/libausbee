@@ -47,14 +47,12 @@ typedef struct
  uint32_t GPIO_Pin;
  ADC_TypeDef* ADCx;
  uint8_t ADC_Channel;
-
  uint16_t value;
 
 }ausbee_GP2;
 
 void ausbee_init_struct_GP2(ausbee_GP2* GP2,uint8_t GP2_number);
 void ausbee_init_GP2(ausbee_GP2* GP2);
-void ausbee_read_GP2(ausbee_GP2* GP2);
-uint16_t ausbee_GP2_get_value(ausbee_GP2* GP2);
+uint16_t ausbee_read_GP2(ausbee_GP2* GP2);
 
 #endif // GP2_H
