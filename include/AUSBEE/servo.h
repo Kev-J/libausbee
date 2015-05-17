@@ -111,7 +111,7 @@ typedef struct
   * @{
   */
 
-void    ausbeeInitStructServo(ausbeeServo* servo);                // Default parameters initialization
+void    ausbeeInitStructServo(ausbeeServo* servo, uint16_t min_val, uint16_t max_val, TIM_TypeDef* TIMx, uint16_t CHANx);
 void    ausbeeInitServo(ausbeeServo* servo);                      // PWM initialization
 void    ausbeeSetAngleServo(ausbeeServo* servo, uint8_t inAngle); // Set servo angle
 uint8_t ausbeeGetAngleServo(ausbeeServo* servo);                  // Return servo angle

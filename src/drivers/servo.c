@@ -52,12 +52,12 @@
   *         configuration information for the specified servo.
   * @retval None
   */
-void ausbeeInitStructServo(ausbeeServo* servo)
+void ausbeeInitStructServo(ausbeeServo* servo, uint16_t min_val, uint16_t max_val, TIM_TypeDef* TIMx, uint16_t CHANx)
 {
-  servo->minValue = 30;
-  servo->maxValue = 105;
-  servo->TIMx = TIM2;
-  servo->CHANx = TIM_Channel_1;
+  servo->minValue = min_val;
+  servo->maxValue = max_val;
+  servo->TIMx = TIMx;
+  servo->CHANx = CHANx;
 }
 
 /**
