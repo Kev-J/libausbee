@@ -3,8 +3,8 @@
  * @file    encoder.h
  * @author  David BITONNEAU <david.bitonneau@gmail.com>
  * @author  Fabien DEPRAETRE
- * @version V1.0
- * @date    18-Mar-2014
+ * @version V1.2
+ * @date    14-May-2015
  * @brief   Encoders driver definition file.
  ********************************************************************
  * @attention
@@ -24,7 +24,7 @@
  * You should have received a copy of the GNU General Public License
  * along with LIBAUSBEE.  If not, see <http://www.gnu.org/licenses/>.
  *
- * <h2><centor>&copy;  Copyright 2013-2014 (C) EIRBOT </center></h2>
+ * <h2><centor>&copy;  Copyright 2013-2015 (C) EIRBOT </center></h2>
  ********************************************************************
  */
 #ifndef GP2_H
@@ -43,15 +43,15 @@
 
 typedef struct
 {
- GPIO_TypeDef* GPIOx;
- uint32_t GPIO_Pin;
- ADC_TypeDef* ADCx;
- uint8_t ADC_Channel;
- uint16_t value;
+  GPIO_TypeDef* GPIOx;
+  uint32_t GPIO_Pin;
+  ADC_TypeDef* ADCx;
+  uint8_t ADC_Channel;
+  uint16_t value;
 
 }ausbee_GP2;
 
-void ausbee_init_struct_GP2(ausbee_GP2* GP2,uint8_t GP2_number);
+void ausbee_init_struct_GP2(ausbee_GP2* GP2, uint8_t GP2_number);
 void ausbee_init_GP2(ausbee_GP2* GP2);
 uint16_t ausbee_read_GP2(ausbee_GP2* GP2);
 

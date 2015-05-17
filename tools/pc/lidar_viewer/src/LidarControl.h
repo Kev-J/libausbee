@@ -29,7 +29,7 @@
 
 extern "C"
 {
-	#include <AUSBEE/lidar.h>
+  #include <AUSBEE/lidar.h>
 }
 
 class LidarControl : public QObject {

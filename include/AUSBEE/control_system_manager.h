@@ -2,7 +2,7 @@
  ********************************************************************
  * @file    control_system_manager.h
  * @author  David BITONNEAU <david.bitonneau@gmail.com>
- * @version V1.3
+ * @version V0.1
  * @date    23-May-2014
  * @brief   Controller system manager definition file.
  ********************************************************************
@@ -23,7 +23,7 @@
  * You should have received a copy of the GNU General Public License
  * along with LIBAUSBEE.  If not, see <http://www.gnu.org/licenses/>.
  *
- * <h2><centor>&copy;  Copyright 2013-2014 (C) EIRBOT </center></h2>
+ * <h2><centor>&copy;  Copyright 2013-2015 (C) EIRBOT </center></h2>
  ********************************************************************
  */
 #ifndef CONTROL_SYSTEM_MANAGER_H
@@ -123,4 +123,4 @@ void ausbee_cs_set_reference(struct ausbee_cs *cs, float ref);
   * @}
   */
 
-/************** (C) COPYRIGHT 2013-2014 Eirbot **** END OF FILE ****/
+/************** (C) COPYRIGHT 2013-2015 Eirbot **** END OF FILE ****/

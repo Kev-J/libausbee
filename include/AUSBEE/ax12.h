@@ -2,10 +2,10 @@
  ********************************************************************
  * @file    ax12.h
  * @author  Vincent CESSON <cesson.vincent@gmail.com>
- * @version V1.0
+ * @version V0.1
  * @date    20-Feb-2014
  * @brief   This file contains all the functions prototype  and 
- *			 definesfor the Ax12 library.
+ *          definesfor the Ax12 library.
  ********************************************************************
  * @attention
  *
@@ -24,7 +24,7 @@
  * You should have received a copy of the GNU General Public License
  * along with LIBAUSBEE.  If not, see <http://www.gnu.org/licenses/>.
  *
- * <h2><centor>&copy;  Copyright 2013-2014 (C) EIRBOT </center></h2>
+ * <h2><centor>&copy;  Copyright 2013-2015 (C) EIRBOT </center></h2>
  ********************************************************************
  */
 
@@ -54,24 +54,24 @@
  * @{
  */
 
-#define LIBAUSBEE_AX12_BROADCAST_ID			0xFE
-#define LIBAUSBEE_AX12_INSTR_PING			0x01
-#define LIBAUSBEE_AX12_INSTR_RDATA			0x02
-#define LIBAUSBEE_AX12_INSTR_WDATA			0x03
-#define LIBAUSBEE_AX12_INSTR_REGWRITE		0x04
-#define LIBAUSBEE_AX12_INSTR_ACTION			0x05
-#define LIBAUSBEE_AX12_INSTR_RESET			0x06
-#define LIBAUSBEE_AX12_INSTR_SYNCWRITE		0x83
+#define LIBAUSBEE_AX12_BROADCAST_ID       0xFE
+#define LIBAUSBEE_AX12_INSTR_PING         0x01
+#define LIBAUSBEE_AX12_INSTR_RDATA        0x02
+#define LIBAUSBEE_AX12_INSTR_WDATA        0x03
+#define LIBAUSBEE_AX12_INSTR_REGWRITE     0x04
+#define LIBAUSBEE_AX12_INSTR_ACTION       0x05
+#define LIBAUSBEE_AX12_INSTR_RESET        0x06
+#define LIBAUSBEE_AX12_INSTR_SYNCWRITE    0x83
 
-#define LIBAUSBEE_AX12_REG_MODEL_NUM_L		0x00
-#define LIBAUSBEE_AX12_REG_MODEL_NUM_H		0x01
-#define LIBAUSBEE_AX12_REG_VERSION			0x02
-#define LIBAUSBEE_AX12_REG_ID				0x03
-#define LIBAUSBEE_AX12_REG_BAUDRATE			0x04
-#define LIBAUSBEE_AX12_REG_GOAL_POS_L		0x1E
-#define LIBAUSBEE_AX12_REG_GOAL_POS_H		0x1F
-#define LIBAUSBEE_AX12_REG_PRESENT_POS_L	0x24
-#define LIBAUSBEE_AX12_REG_PRESENT_POS_H	0x25
+#define LIBAUSBEE_AX12_REG_MODEL_NUM_L    0x00
+#define LIBAUSBEE_AX12_REG_MODEL_NUM_H    0x01
+#define LIBAUSBEE_AX12_REG_VERSION        0x02
+#define LIBAUSBEE_AX12_REG_ID             0x03
+#define LIBAUSBEE_AX12_REG_BAUDRATE       0x04
+#define LIBAUSBEE_AX12_REG_GOAL_POS_L     0x1E
+#define LIBAUSBEE_AX12_REG_GOAL_POS_H     0x1F
+#define LIBAUSBEE_AX12_REG_PRESENT_POS_L  0x24
+#define LIBAUSBEE_AX12_REG_PRESENT_POS_H  0x25
 
 /**
  * @}
@@ -88,10 +88,10 @@
 
 typedef struct
 {
-	uint8_t id;
-	uint8_t length;
-	uint8_t instruct;
-	uint8_t *parameters;
+  uint8_t id;
+  uint8_t length;
+  uint8_t instruct;
+  uint8_t *parameters;
 } ausbeeAX12packet;
 
 /**
@@ -103,9 +103,9 @@ typedef struct
  * @{
  */
 
-void    ausbeeInitAX12(uint32_t baudrate);                      // PWM initialization
-void    ausbeeSetAngleAX12(); // Set servo angle
-uint8_t ausbeeGetAngleAX12();                  // Return servo angle
+void    ausbeeInitAX12(uint32_t baudrate); // PWM initialization
+void    ausbeeSetAngleAX12();              // Set servo angle
+uint8_t ausbeeGetAngleAX12();              // Return servo angle
 
 #endif /* _AX12_H */
 
@@ -121,4 +121,4 @@ uint8_t ausbeeGetAngleAX12();                  // Return servo angle
  * @}
  */
 
-/**************** (C) COPYRIGHT 2013-2014 Eirbot **** END OF FILE ****/
+/**************** (C) COPYRIGHT 2013-2015 Eirbot **** END OF FILE ****/

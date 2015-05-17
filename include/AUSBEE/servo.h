@@ -2,8 +2,8 @@
   ********************************************************************
   * @file    servo.h
   * @author  Luc PRAMPOLINI <luc.prampolini@gmail.com>
-  * @version V1.0
-  * @date    20-Dec-2013
+  * @version V1.2
+  * @date    17-May-2015
   * @brief   This file contains all the functions prototype for the
   *          servo library.
   ********************************************************************
@@ -24,7 +24,7 @@
   * You should have received a copy of the GNU General Public License
   * along with LIBAUSBEE.  If not, see <http://www.gnu.org/licenses/>.
   *
-  * <h2><centor>&copy;  Copyright 2013-2014 (C) EIRBOT </center></h2>
+  * <h2><centor>&copy;  Copyright 2013-2015 (C) EIRBOT </center></h2>
   ********************************************************************
   */
 
@@ -130,4 +130,4 @@ uint8_t ausbeeGetAngleServo(ausbeeServo* servo);                  // Return serv
   * @}
   */
 
-/**************** (C) COPYRIGHT 2013-2014 Eirbot **** END OF FILE ****/
+/**************** (C) COPYRIGHT 2013-2015 Eirbot **** END OF FILE ****/

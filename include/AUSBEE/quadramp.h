@@ -67,7 +67,7 @@
  * You should have received a copy of the GNU General Public License
  * along with LIBAUSBEE.  If not, see <http://www.gnu.org/licenses/>.
  *
- * <h2><centor>&copy;  Copyright 2013-2014 (C) EIRBOT </center></h2>
+ * <h2><centor>&copy;  Copyright 2013-2015 (C) EIRBOT </center></h2>
  ********************************************************************
  */
 #ifndef QUADRAMP_H
@@ -143,14 +143,14 @@ void ausbee_quadramp_init(struct ausbee_quadramp *q);
 void ausbee_quadramp_set_eval_period(struct ausbee_quadramp *q, float period);
 
 void ausbee_quadramp_set_2nd_order_vars(struct ausbee_quadramp *q,
-				 float var_2nd_ord_pos,
-				 float var_2nd_ord_neg);
+         float var_2nd_ord_pos,
+         float var_2nd_ord_neg);
 
 void ausbee_quadramp_set_1st_order_vars(struct ausbee_quadramp *q,
-				 float var_1st_ord_pos,
-				 float var_1st_ord_neg);
+         float var_1st_ord_pos,
+         float var_1st_ord_neg);
 
-void ausbee_quadramp_reset(struct ausbee_quadramp * q);
+void ausbee_quadramp_reset(struct ausbee_quadramp *q);
 
 /**
  * Return 1 when (filter_input == filter_output && 1st_ord variation
@@ -178,4 +178,4 @@ float ausbee_quadramp_eval(void *q, float in);
   * @}
   */
 
-/************** (C) COPYRIGHT 2013-2014 Eirbot **** END OF FILE ****/
+/************** (C) COPYRIGHT 2013-2015 Eirbot **** END OF FILE ****/

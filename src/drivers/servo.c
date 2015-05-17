@@ -2,8 +2,9 @@
  ********************************************************************
  * @file    servo.c
  * @author  Luc PRAMPOLINI <luc.prampolini@gmail.com>
- * @version V1.1
- * @date    20-Dec-2013
+ * @author  David Bitonneau <david.bitonneau@gmail.com>
+ * @version V1.2
+ * @date    17-May-2015
  * @brief   This file provides functions for driving servomotors.
  ********************************************************************
  * @attention
@@ -23,7 +24,7 @@
  * You should have received a copy of the GNU General Public License
  * along with LIBAUSBEE.  If not, see <http://www.gnu.org/licenses/>.
  *
- * <h2><centor>&copy;  Copyright 2013-2014 (C) EIRBOT </center></h2>
+ * <h2><centor>&copy;  Copyright 2013-2015 (C) EIRBOT </center></h2>
  ********************************************************************
  */
 
@@ -96,18 +97,18 @@ void ausbeeInitServo(ausbeeServo* servo)
   */
 void ausbeeSetAngleServo(ausbeeServo* servo, uint8_t angle)
 {
-  uint8_t newPulse = angle*(servo->maxValue-servo->minValue)/100 + servo->minValue;  // Compute new pulse value
+  uint8_t newPulse = angle * (servo->maxValue - servo->minValue) / 100 + servo->minValue;  // Compute new pulse value
   if( newPulse >= servo->minValue && newPulse <= servo->maxValue ) // Verify value
-    {
-      if(servo->CHANx == TIM_Channel_1)
-	TIM_SetCompare1(servo->TIMx, newPulse);
-      else if(servo->CHANx == TIM_Channel_2)
-	TIM_SetCompare2(servo->TIMx, newPulse);
-      else if(servo->CHANx == TIM_Channel_3)
-	TIM_SetCompare3(servo->TIMx, newPulse);
-      else
-	TIM_SetCompare4(servo->TIMx, newPulse);
-    }
+  {
+    if(servo->CHANx == TIM_Channel_1)
+      TIM_SetCompare1(servo->TIMx, newPulse);
+    else if(servo->CHANx == TIM_Channel_2)
+      TIM_SetCompare2(servo->TIMx, newPulse);
+    else if(servo->CHANx == TIM_Channel_3)
+      TIM_SetCompare3(servo->TIMx, newPulse);
+    else
+      TIM_SetCompare4(servo->TIMx, newPulse);
+  }
 }
 
 /**
@@ -124,8 +125,8 @@ uint8_t ausbeeGetAngleServo(ausbeeServo* servo)
     return (uint8_t)( (TIM_GetCapture2(servo->TIMx)-servo->minValue)*100/(servo->maxValue-servo->minValue));
   else if(servo->CHANx == TIM_Channel_3)
     return (uint8_t)( (TIM_GetCapture3(servo->TIMx)-servo->minValue)*100/(servo->maxValue-servo->minValue));
-    else
-      return (uint8_t)( (TIM_GetCapture4(servo->TIMx)-servo->minValue)*100/(servo->maxValue-servo->minValue));
+  else
+    return (uint8_t)( (TIM_GetCapture4(servo->TIMx)-servo->minValue)*100/(servo->maxValue-servo->minValue));
 }
 
 /**
@@ -138,4 +139,4 @@ uint8_t ausbeeGetAngleServo(ausbeeServo* servo)
   * @}
   */
 
-/************** (C) COPYRIGHT 2013-2014 Eirbot **** END OF FILE ****/
+/************** (C) COPYRIGHT 2013-2015 Eirbot **** END OF FILE ****/

@@ -23,7 +23,7 @@
  * You should have received a copy of the GNU General Public License
  * along with LIBAUSBEE.  If not, see <http://www.gnu.org/licenses/>.
  *
- * <h2><centor>&copy;  Copyright 2013-2014 (C) EIRBOT </center></h2>
+ * <h2><centor>&copy;  Copyright 2013-2015 (C) EIRBOT </center></h2>
  ********************************************************************
  */
 #include <string.h>
@@ -54,8 +54,8 @@
 
 void ausbee_quadramp_init(struct ausbee_quadramp *q)
 {
-	memset(q, 0, sizeof(*q));
-	q->eval_period = 1;
+  memset(q, 0, sizeof(*q));
+  q->eval_period = 1;
 }
 
 void ausbee_quadramp_set_eval_period(struct ausbee_quadramp *q, float period)
@@ -64,22 +64,22 @@ void ausbee_quadramp_set_eval_period(struct ausbee_quadramp *q, float period)
 }
 
 void ausbee_quadramp_set_2nd_order_vars(struct ausbee_quadramp * q,
-				 float var_2nd_ord_pos,
-				 float var_2nd_ord_neg)
+         float var_2nd_ord_pos,
+         float var_2nd_ord_neg)
 {
-	q->var_2nd_ord_pos = var_2nd_ord_pos;
-	q->var_2nd_ord_neg = var_2nd_ord_neg;
+  q->var_2nd_ord_pos = var_2nd_ord_pos;
+  q->var_2nd_ord_neg = var_2nd_ord_neg;
 }
 
 void ausbee_quadramp_set_1st_order_vars(struct ausbee_quadramp * q,
-				 float var_1st_ord_pos,
-				 float var_1st_ord_neg)
+         float var_1st_ord_pos,
+         float var_1st_ord_neg)
 {
-	q->var_1st_ord_pos = var_1st_ord_pos;
-	q->var_1st_ord_neg = var_1st_ord_neg;
+  q->var_1st_ord_pos = var_1st_ord_pos;
+  q->var_1st_ord_neg = var_1st_ord_neg;
 }
 
-void ausbee_quadramp_reset(struct ausbee_quadramp * q)
+void ausbee_quadramp_reset(struct ausbee_quadramp *q)
 {
   q->prev_var = 0;
 }
@@ -87,118 +87,118 @@ void ausbee_quadramp_reset(struct ausbee_quadramp * q)
 /* TODO: handle float equality */
 int ausbee_quadramp_is_finished(struct ausbee_quadramp *q)
 {
-	return (q->prev_out == q->prev_in && q->prev_var == 0);
+  return (q->prev_out == q->prev_in && q->prev_var == 0);
 }
 
 float ausbee_quadramp_eval(void * data, float in)
 {
-	struct ausbee_quadramp * q = data;
-	float d ;
-	float pos_target;
-	float var_1st_ord_pos = 0;
-	float var_1st_ord_neg = 0;
-	float var_2nd_ord_pos = 0;
-	float var_2nd_ord_neg = 0;
-	float prev_var, prev_out ;
+  struct ausbee_quadramp * q = data;
+  float d ;
+  float pos_target;
+  float var_1st_ord_pos = 0;
+  float var_1st_ord_neg = 0;
+  float var_2nd_ord_pos = 0;
+  float var_2nd_ord_neg = 0;
+  float prev_var, prev_out ;
 
-	if ( q->var_1st_ord_pos )
-		var_1st_ord_pos = q->var_1st_ord_pos * q->eval_period;
+  if ( q->var_1st_ord_pos )
+    var_1st_ord_pos = q->var_1st_ord_pos * q->eval_period;
 
-	if ( q->var_1st_ord_neg )
-		var_1st_ord_neg = -q->var_1st_ord_neg * q->eval_period;
+  if ( q->var_1st_ord_neg )
+    var_1st_ord_neg = -q->var_1st_ord_neg * q->eval_period;
 
-	if ( q->var_2nd_ord_pos )
-		var_2nd_ord_pos = q->var_2nd_ord_pos * SQUARE(q->eval_period);
+  if ( q->var_2nd_ord_pos )
+    var_2nd_ord_pos = q->var_2nd_ord_pos * SQUARE(q->eval_period);
 
-	if ( q->var_2nd_ord_neg )
-		var_2nd_ord_neg = -q->var_2nd_ord_neg * SQUARE(q->eval_period);
+  if ( q->var_2nd_ord_neg )
+    var_2nd_ord_neg = -q->var_2nd_ord_neg * SQUARE(q->eval_period);
 
-	prev_var = q->prev_var;
-	prev_out = q->prev_out;
+  prev_var = q->prev_var;
+  prev_out = q->prev_out;
 
-	d = in - prev_out ;
+  d = in - prev_out ;
 
-	/* Deceleration ramp */
-	if ( d > 0 && var_2nd_ord_neg) {
-		float ramp_pos;
-		/* var_2nd_ord_neg < 0 */
-		/* real EQ : sqrtf( var_2nd_ord_neg^2/4 - 2.d.var_2nd_ord_neg ) + var_2nd_ord_neg/2 */
-		ramp_pos = sqrtf( (var_2nd_ord_neg*var_2nd_ord_neg)/4 - 2*d*var_2nd_ord_neg ) + var_2nd_ord_neg/2;
+  /* Deceleration ramp */
+  if ( d > 0 && var_2nd_ord_neg) {
+    float ramp_pos;
+    /* var_2nd_ord_neg < 0 */
+    /* real EQ : sqrtf( var_2nd_ord_neg^2/4 - 2.d.var_2nd_ord_neg ) + var_2nd_ord_neg/2 */
+    ramp_pos = sqrtf( (var_2nd_ord_neg*var_2nd_ord_neg)/4 - 2*d*var_2nd_ord_neg ) + var_2nd_ord_neg/2;
 
-		if(ramp_pos < var_1st_ord_pos)
-			var_1st_ord_pos = ramp_pos ;
-	}
+    if(ramp_pos < var_1st_ord_pos)
+      var_1st_ord_pos = ramp_pos ;
+  }
 
-	else if (d < 0 && var_2nd_ord_pos) {
-		float ramp_neg;
+  else if (d < 0 && var_2nd_ord_pos) {
+    float ramp_neg;
 
-		/* var_2nd_ord_pos > 0 */
-		/* real EQ : sqrtf( var_2nd_ord_pos^2/4 - 2.d.var_2nd_ord_pos ) - var_2nd_ord_pos/2 */
-		ramp_neg = -sqrtf( (var_2nd_ord_pos*var_2nd_ord_pos)/4 - 2*d*var_2nd_ord_pos ) - var_2nd_ord_pos/2;
-	
-		/* ramp_neg < 0 */
-		if(ramp_neg > var_1st_ord_neg)
-			var_1st_ord_neg = ramp_neg ;
-	}
+    /* var_2nd_ord_pos > 0 */
+    /* real EQ : sqrtf( var_2nd_ord_pos^2/4 - 2.d.var_2nd_ord_pos ) - var_2nd_ord_pos/2 */
+    ramp_neg = -sqrtf( (var_2nd_ord_pos*var_2nd_ord_pos)/4 - 2*d*var_2nd_ord_pos ) - var_2nd_ord_pos/2;
 
-	/* try to set the speed : can we reach the speed with our acceleration ? */
-	/* si on va moins vite que la Vmax */
-	if ( prev_var < var_1st_ord_pos )  {
-		/* acceleration would be to high, we reduce the speed */
-		/* si rampe acceleration active ET qu'on ne peut pas atteindre Vmax,
-		 * on sature Vmax a Vcourante + acceleration */
-		if (var_2nd_ord_pos && ( var_1st_ord_pos - prev_var > var_2nd_ord_pos) )
-			var_1st_ord_pos = prev_var + var_2nd_ord_pos ;
-	}
-	/* si on va plus vite que Vmax */
-	else if ( prev_var > var_1st_ord_pos )  {
-		/* deceleration would be to high, we increase the speed */
-		/* si rampe deceleration active ET qu'on ne peut pas atteindre Vmax,
-		 * on sature Vmax a Vcourante + deceleration */
-		if (var_2nd_ord_neg && ( var_1st_ord_pos - prev_var < var_2nd_ord_neg) )
-			var_1st_ord_pos = prev_var + var_2nd_ord_neg;
-	}
+    /* ramp_neg < 0 */
+    if(ramp_neg > var_1st_ord_neg)
+      var_1st_ord_neg = ramp_neg ;
+  }
 
-	/* same for the neg */
-	/* si on va plus vite que la Vmin (en negatif : en vrai la vitesse absolue est inferieure) */
-	if ( prev_var > var_1st_ord_neg )  {
-		/* acceleration would be to high, we reduce the speed */
-		/* si rampe deceleration active ET qu'on ne peut pas atteindre Vmin,
-		 * on sature Vmax a Vcourante + deceleration */
-		if (var_2nd_ord_neg && ( var_1st_ord_neg - prev_var < var_2nd_ord_neg) )
-			var_1st_ord_neg = prev_var + var_2nd_ord_neg ;
-	}
-	/* si on va moins vite que Vmin (mais vitesse absolue superieure) */
-	else if ( prev_var < var_1st_ord_neg )  {
-		/* deceleration would be to high, we increase the speed */
-		/* si rampe acceleration active ET qu'on ne peut pas atteindre Vmin,
-		 * on sature Vmax a Vcourante + deceleration */
-		if (var_2nd_ord_pos && (var_1st_ord_neg - prev_var > var_2nd_ord_pos) )
-			var_1st_ord_neg = prev_var + var_2nd_ord_pos;
-	}
+  /* try to set the speed : can we reach the speed with our acceleration ? */
+  /* si on va moins vite que la Vmax */
+  if ( prev_var < var_1st_ord_pos )  {
+    /* acceleration would be to high, we reduce the speed */
+    /* si rampe acceleration active ET qu'on ne peut pas atteindre Vmax,
+     * on sature Vmax a Vcourante + acceleration */
+    if (var_2nd_ord_pos && ( var_1st_ord_pos - prev_var > var_2nd_ord_pos) )
+      var_1st_ord_pos = prev_var + var_2nd_ord_pos ;
+  }
+  /* si on va plus vite que Vmax */
+  else if ( prev_var > var_1st_ord_pos )  {
+    /* deceleration would be to high, we increase the speed */
+    /* si rampe deceleration active ET qu'on ne peut pas atteindre Vmax,
+     * on sature Vmax a Vcourante + deceleration */
+    if (var_2nd_ord_neg && ( var_1st_ord_pos - prev_var < var_2nd_ord_neg) )
+      var_1st_ord_pos = prev_var + var_2nd_ord_neg;
+  }
 
-	/*
-	 * Position consign : can we reach the position with our speed ?
-	 */
-	if ( /* var_1st_ord_pos &&  */d > var_1st_ord_pos ) {
-		pos_target = prev_out + var_1st_ord_pos ;
-		prev_var = var_1st_ord_pos ;
-	}
-	else if ( /* var_1st_ord_neg &&  */d < var_1st_ord_neg ) {
-		pos_target = prev_out + var_1st_ord_neg ;
-		prev_var = var_1st_ord_neg ;
-	}
-	else {
-		pos_target = prev_out + d ;
-		prev_var = d ;
-	}
+  /* same for the neg */
+  /* si on va plus vite que la Vmin (en negatif : en vrai la vitesse absolue est inferieure) */
+  if ( prev_var > var_1st_ord_neg )  {
+    /* acceleration would be to high, we reduce the speed */
+    /* si rampe deceleration active ET qu'on ne peut pas atteindre Vmin,
+     * on sature Vmax a Vcourante + deceleration */
+    if (var_2nd_ord_neg && ( var_1st_ord_neg - prev_var < var_2nd_ord_neg) )
+      var_1st_ord_neg = prev_var + var_2nd_ord_neg ;
+  }
+  /* si on va moins vite que Vmin (mais vitesse absolue superieure) */
+  else if ( prev_var < var_1st_ord_neg )  {
+    /* deceleration would be to high, we increase the speed */
+    /* si rampe acceleration active ET qu'on ne peut pas atteindre Vmin,
+     * on sature Vmax a Vcourante + deceleration */
+    if (var_2nd_ord_pos && (var_1st_ord_neg - prev_var > var_2nd_ord_pos) )
+      var_1st_ord_neg = prev_var + var_2nd_ord_pos;
+  }
 
-	// update prev_out and prev_var
-	q->prev_var = prev_var;
-	q->prev_out = pos_target;
-	q->prev_in = in;
+  /*
+   * Position consign : can we reach the position with our speed ?
+   */
+  if ( /* var_1st_ord_pos &&  */d > var_1st_ord_pos ) {
+    pos_target = prev_out + var_1st_ord_pos ;
+    prev_var = var_1st_ord_pos ;
+  }
+  else if ( /* var_1st_ord_neg &&  */d < var_1st_ord_neg ) {
+    pos_target = prev_out + var_1st_ord_neg ;
+    prev_var = var_1st_ord_neg ;
+  }
+  else {
+    pos_target = prev_out + d ;
+    prev_var = d ;
+  }
 
-	return pos_target ;
+  // update prev_out and prev_var
+  q->prev_var = prev_var;
+  q->prev_out = pos_target;
+  q->prev_in = in;
+
+  return pos_target ;
 }
 
 /**
@@ -217,4 +217,4 @@ float ausbee_quadramp_eval(void * data, float in)
   * @}
   */
 
-/************** (C) COPYRIGHT 2013-2014 Eirbot **** END OF FILE ****/
+/************** (C) COPYRIGHT 2013-2015 Eirbot **** END OF FILE ****/

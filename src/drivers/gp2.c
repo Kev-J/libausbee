@@ -2,8 +2,8 @@
  ********************************************************************
  * @file    gp2.c
  * @author  Fabien DEPRAETRE <depraetref@gmail.com>
- * @version V1.1
- * @date    10-Mai-2015
+ * @version V1.2
+ * @date    14-May-2015
  * @brief   This file provides functions for reading GP2 values
  ********************************************************************
  * @attention
@@ -23,7 +23,7 @@
  * You should have received a copy of the GNU General Public License
  * along with LIBAUSBEE.  If not, see <http://www.gnu.org/licenses/>.
  *
- * <h2><centor>&copy;  Copyright 2013-2014 (C) EIRBOT </center></h2>
+ * <h2><centor>&copy;  Copyright 2013-2015 (C) EIRBOT </center></h2>
  ********************************************************************
  */
 

@@ -3,7 +3,7 @@
  * @file    encoder.c
  * @author  David BITONNEAU <david.bitonneau@gmail.com>
  * @author  Fabien DEPRAETRE
- * @version V2.0
+ * @version V1.0
  * @date    08-May-2015
  * @brief   Encoders driver implementation file.
  ********************************************************************
@@ -24,7 +24,7 @@
  * You should have received a copy of the GNU General Public License
  * along with LIBAUSBEE.  If not, see <http://www.gnu.org/licenses/>.
  *
- * <h2><centor>&copy;  Copyright 2013-2014 (C) EIRBOT </center></h2>
+ * <h2><centor>&copy;  Copyright 2013-2015 (C) EIRBOT </center></h2>
  ********************************************************************
  */
 #include "AUSBEE/encoder.h"
@@ -152,4 +152,4 @@ void ausbee_encoder_clock_disable(TIM_TypeDef *TIMX)
   * @}
   */
 
-/************** (C) COPYRIGHT 2013-2014 Eirbot **** END OF FILE ****/
+/************** (C) COPYRIGHT 2013-2015 Eirbot **** END OF FILE ****/
